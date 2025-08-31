@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1756635101042",
+    "email": "admin@bookheaven.com",
+    "password": "$2a$12$HM73ub9TKDbn8YIiCKDqTeC/VocXa3k4bpQcIyzfp5Rbn6EGcXSue",
+    "name": "Admin User",
+    "role": "admin",
+    "createdAt": "2025-08-31T10:11:41.042Z"
+  },
+  {
+    "id": "1756635592658",
+    "email": "ajitsharma6509@hmail.com",
+    "password": "$2a$12$7X9mtehF5umoOXmBVqi6c.MHnL.qYIpZvBun9gg/x8gMPkeW1/Us2",
+    "name": "krish",
+    "role": "user",
+    "createdAt": "2025-08-31T10:19:52.658Z"
+  }
+]
