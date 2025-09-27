@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { BookOpen, Library, Upload, User, LogOut, LogIn } from 'lucide-react'
-import { AuthProvider, useAuth } from '@/components/AuthContext'
+import { AuthProvider, useAuth } from '../components/AuthContext'
 
 function HomePageContent() {
   const { user, isAdmin, logout } = useAuth();

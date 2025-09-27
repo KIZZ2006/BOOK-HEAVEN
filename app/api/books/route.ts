@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllBooks } from '@/lib/pdfUtils';
+import { getAllBooks } from '../../lib/pdfUtils';
 
 export async function GET() {
   try {

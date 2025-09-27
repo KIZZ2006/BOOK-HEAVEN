@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/components/AuthContext';
+import { useAuth } from '../components/AuthContext';
 import { useRouter } from 'next/navigation';
-import LoginForm from '@/components/LoginForm';
-import SignupForm from '@/components/SignupForm';
+import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
 import { BookOpen, Sparkles } from 'lucide-react';
 
 export default function AuthPage() {

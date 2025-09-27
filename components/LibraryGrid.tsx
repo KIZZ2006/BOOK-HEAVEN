@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Headphones, X, FileText, HardDrive, Eye, Play, Trash2, AlertCircle } from 'lucide-react'
-import { BookMetadata } from '@/lib/pdfUtils'
+import { BookMetadata } from '../lib/pdfUtils'
 import { useAuth } from './AuthContext'
-import { API_BASE_URL } from '@/lib/config'
-import { getBookCoverStyle, getBookCoverClassName } from '@/lib/bookUtils'
+import { API_BASE_URL } from '../lib/config'
+import { getBookCoverStyle, getBookCoverClassName } from '../lib/bookUtils'
 
 interface LibraryGridProps {
   books: BookMetadata[]
