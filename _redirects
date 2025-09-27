@@ -1,0 +1,5 @@
+# API redirects to Vercel backend
+/api/* https://YOUR-BACKEND-URL.vercel.app/api/:splat 200
+
+# SPA fallback
+/* /index.html 200

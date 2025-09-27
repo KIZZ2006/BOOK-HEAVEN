@@ -14,6 +14,16 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['pdf-parse'],
   },
+  // Configuration for static export (Netlify deployment)
+  output: process.env.NODE_ENV === 'production' && process.env.DEPLOY_TARGET === 'netlify' ? 'export' : undefined,
+  trailingSlash: true,
+  // Disable server-side features for static export
+  ...(process.env.DEPLOY_TARGET === 'netlify' && {
+    distDir: 'out',
+    images: {
+      unoptimized: true,
+    },
+  }),
 }
 
 module.exports = nextConfig

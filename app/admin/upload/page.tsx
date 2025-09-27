@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Upload, FileText, User, Tag, FileUp, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/components/AuthContext';
 import { useRouter } from 'next/navigation';
+import { API_BASE_URL } from '@/lib/config';
 
 export default function AdminUploadPage() {
   const { user, isAdmin, token } = useAuth();
@@ -50,7 +51,7 @@ export default function AdminUploadPage() {
     e.preventDefault();
     setIsDragOver(false);
     
-    const files = e.dataTransfer.files;
+    const { files } = e.dataTransfer;
     if (files.length > 0) {
       const file = files[0];
       if (file.type === 'application/pdf') {
@@ -63,7 +64,8 @@ export default function AdminUploadPage() {
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const { files } = e.target;
+    const file = files?.[0];
     if (file) {
       if (file.type === 'application/pdf') {
         setSelectedFile(file);
@@ -93,7 +95,7 @@ export default function AdminUploadPage() {
       formData.append('description', description);
       formData.append('tags', tags);
 
-      const response = await fetch('/api/admin/upload', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/upload`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -188,6 +190,8 @@ export default function AdminUploadPage() {
                   accept=".pdf"
                   onChange={handleFileSelect}
                   className="hidden"
+                  aria-label="Select PDF file"
+                  title="Select PDF file to upload"
                 />
                 
                 {selectedFile ? (

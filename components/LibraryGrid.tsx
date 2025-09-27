@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Headphones, X, FileText, HardDrive, Eye, Play, Trash2, AlertCircle } from 'lucide-react'
 import { BookMetadata } from '@/lib/pdfUtils'
 import { useAuth } from './AuthContext'
+import { API_BASE_URL } from '@/lib/config'
+import { getBookCoverStyle, getBookCoverClassName } from '@/lib/bookUtils'
 
 interface LibraryGridProps {
   books: BookMetadata[]
@@ -25,7 +27,7 @@ export default function LibraryGrid({ books }: LibraryGridProps) {
     setDeleteError('');
 
     try {
-      const response = await fetch('/api/admin/delete-book', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/delete-book`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -99,8 +101,8 @@ export default function LibraryGrid({ books }: LibraryGridProps) {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 overflow-hidden">
               {/* Book Cover */}
               <div 
-                className="h-48 relative overflow-hidden"
-                style={{ backgroundColor: book.coverColor }}
+                className={getBookCoverClassName(book.coverColor, "h-48 relative overflow-hidden")}
+                title={`Book cover for ${book.title}`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/10"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -204,6 +206,8 @@ export default function LibraryGrid({ books }: LibraryGridProps) {
                 <button
                   onClick={() => setSelectedBook(null)}
                   className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
+                  title="Close book details"
+                  aria-label="Close book details"
                 >
                   <X size={20} className="text-slate-600" />
                 </button>
@@ -211,8 +215,8 @@ export default function LibraryGrid({ books }: LibraryGridProps) {
 
               {/* Book Cover */}
               <div 
-                className="w-full h-40 rounded-2xl mb-6 flex items-center justify-center shadow-lg"
-                style={{ backgroundColor: selectedBook.coverColor }}
+                className={getBookCoverClassName(selectedBook.coverColor, "w-full h-40 rounded-2xl mb-6 flex items-center justify-center shadow-lg")}
+                title={`Book cover for ${selectedBook.title}`}
               >
                 <BookOpen size={48} className="text-slate-700" />
               </div>

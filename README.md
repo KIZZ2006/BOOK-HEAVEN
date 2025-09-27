@@ -1,253 +1,191 @@
-# Book Heaven 🌿📚
+# Book Heaven - Calm Reads, Boundless Stories 📚
 
-*A calm, luminous, ultra-accessible web reading platform where stories come to life.*
+A sunlit place to discover, read and listen. Gentle UI, big type, and audio that starts right where you want.
 
-## ✨ Features
+## 🆓 **100% FREE Hosting Setup**
 
-### 🎨 **Beautiful Design**
-- **Calm, luminous interface** with soft pastel palette
-- **Falling leaves animation** on homepage (respects reduced motion preferences)
-- **Glass morphism** design elements with subtle shadows
-- **Responsive design** that works on all devices
+### **Free Hosting Stack:**
+- **Frontend + Backend:** Vercel (FREE forever)
+- **Database:** Supabase FREE tier (50,000 monthly active users)
+- **File Storage:** Supabase Storage (1GB FREE)
+- **Authentication:** Supabase Auth (FREE)
+- **Email:** Resend FREE tier (3,000 emails/month)
+- **Analytics:** Vercel Analytics (FREE)
 
-### 🏛️ **3D Interactive Library**
-- **Circular floating library** built with Three.js
-- **Books orbit gently** in a beautiful 3D space
-- **Interactive book selection** with hover effects and glow
-- **Smooth animations** that respect accessibility preferences
+### **Alternative FREE Options:**
+- **Database:** PlanetScale FREE tier (1 database, 1 billion reads/month)
+- **Storage:** Cloudinary FREE tier (25GB storage, 25GB bandwidth/month)
+- **Email:** EmailJS FREE tier (200 emails/month)
 
-### 📖 **Advanced Reader**
-- **Two-page spread** with realistic book opening animation
-- **Adjustable font size** and line height
-- **Night mode** for comfortable reading
-- **Keyboard navigation** (arrow keys, escape, fullscreen)
-- **Auto-hiding controls** for distraction-free reading
+## 🚀 **Quick Deploy (5 minutes)**
 
-### 🔊 **TTS Audio Player**
-- **High-quality text-to-speech** with multiple voices
-- **Synchronized text highlighting** as audio plays
-- **Adjustable playback speed** (0.5x to 2.0x)
-- **Start from any paragraph** with click navigation
-- **Volume and voice controls** with easy access
+1. **Fork this repository**
+2. **Connect to Vercel** (FREE)
+3. **Add environment variables**
+4. **Deploy!**
 
-### ♿ **Accessibility First**
-- **WCAG 2.1 AA compliance** baseline
-- **Keyboard navigation** for all interactions
-- **Screen reader support** with proper ARIA labels
-- **Reduced motion support** for users with vestibular disorders
-- **High contrast mode** support
-- **Focus management** and visible focus indicators
+## 🔧 **Current Features**
 
-### 🔐 **Admin Features**
-- **Admin-only uploads** for PDF books
-- **Secure authentication** with role-based access
-- **DMCA compliance** and takedown workflow
-- **Content moderation** tools
+- ✅ **Admin-only PDF uploads**
+- ✅ **3D circular floating library** (Three.js)
+- ✅ **Two-page reader** with adjustable font size, zoom, night mode
+- ✅ **High-quality TTS audio player** with multi-voice, adjustable speed
+- ✅ **User authentication** (signup/login)
+- ✅ **Admin panel** for book management
+- ✅ **Responsive design** for all devices
+- ✅ **Accessibility features** (WCAG 2.1 AA)
 
-## 🚀 Quick Start
+## 🎨 **Design Features**
 
-### Prerequisites
+- **Calm, luminous UI** with warm pastel palette
+- **Falling leaves animation** on homepage
+- **Subtle glassy materials** and soft shadows
+- **Rounded corners** and gentle micro-interactions
+- **Serif headings** + clean sans-serif body text
+
+## 🛠 **Tech Stack**
+
+- **Frontend:** Next.js 14, React, TypeScript
+- **Styling:** Tailwind CSS, Framer Motion
+- **3D Graphics:** Three.js, React Three Fiber
+- **Backend:** Next.js API Routes
+- **Database:** File-based (can upgrade to Supabase FREE)
+- **Authentication:** JWT + bcrypt
+- **PDF Processing:** pdf-parse
+
+## 📱 **Accessibility**
+
+- **WCAG 2.1 AA compliance**
+- **Keyboard-first navigation**
+- **Screen reader support**
+- **Reduced motion support**
+- **High contrast modes**
+
+## 🚀 **Getting Started**
+
+### **Prerequisites**
 - Node.js 18+ 
 - npm or yarn
 
-### Installation
+### **Installation**
 
 1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd book-heaven
-   ```
+```bash
+git clone https://github.com/yourusername/book-heaven.git
+cd book-heaven
+```
 
 2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **Next.js 14** - React framework with App Router
-- **React Three Fiber** - 3D graphics and animations
-- **Three.js** - 3D library for the interactive library
-- **Framer Motion** - Smooth animations and transitions
-- **Tailwind CSS** - Utility-first CSS framework
-- **Lucide React** - Beautiful, consistent icons
-
-### Backend (Planned)
-- **Node.js/Express** or **Python/FastAPI**
-- **PostgreSQL** - Relational database for metadata
-- **Redis** - Session management and caching
-- **AWS S3/Google Cloud Storage** - PDF and asset storage
-- **CloudFront/CDN** - Fast content delivery
-
-### TTS Integration (Planned)
-- **Google Cloud TTS** or **Amazon Polly**
-- **Real-time streaming** with paragraph synchronization
-- **Multiple voice support** with language options
-
-## 📁 Project Structure
-
-```
-book-heaven/
-├── app/                    # Next.js App Router
-│   ├── globals.css        # Global styles and Tailwind
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Homepage with falling leaves
-│   └── library/           # 3D library page
-├── components/             # React components
-│   ├── Library3D.tsx      # 3D interactive library
-│   ├── BookReader.tsx     # Book reader with two-page spread
-│   └── AudioPlayer.tsx    # TTS audio player
-├── public/                 # Static assets
-├── tailwind.config.js      # Tailwind configuration
-├── package.json            # Dependencies and scripts
-└── README.md              # This file
-```
-
-## 🎯 Key Components
-
-### Homepage (`app/page.tsx`)
-- **Falling leaves animation** with reduced motion support
-- **Welcome message** and community guidelines
-- **Developer credits** (Jane, Krishna) and admin info (Yasemin, Kevser, Krishna)
-- **Quick search** and navigation to library
-
-### 3D Library (`components/Library3D.tsx`)
-- **Circular book orbit** with gentle floating animation
-- **Interactive book selection** with popup cards
-- **Three.js scene** with ambient lighting and particles
-- **Accessibility fallbacks** for reduced motion
-
-### Book Reader (`components/BookReader.tsx`)
-- **Two-page spread** with smooth page transitions
-- **Font controls** (size, line height, night mode)
-- **Keyboard shortcuts** and fullscreen support
-- **Auto-hiding controls** for immersive reading
-
-### Audio Player (`components/AudioPlayer.tsx`)
-- **TTS playback** with synchronized highlighting
-- **Voice selection** and speed controls
-- **Paragraph navigation** with click-to-start
-- **Volume and settings** panel
-
-## 🎨 Design System
-
-### Color Palette
-- **Background**: `#F7FBF6` (very light mint)
-- **Primary**: `#A3D9B1` (pastel leaf green)
-- **Accent**: `#F0D9A7` (soft gold)
-- **Text**: `#263238` (charcoal)
-
-### Typography
-- **Headings**: Playfair Display (serif)
-- **Body**: Inter (sans-serif)
-
-### Animations
-- **Duration**: 150ms - 350ms
-- **Easing**: `cubic-bezier(0.4, 0, 0.2, 1)`
-- **Reduced motion**: Respects user preferences
-
-## 🔧 Development
-
-### Available Scripts
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run test         # Run tests
+npm install
 ```
 
-### Code Style
-- **TypeScript** for type safety
-- **ESLint** for code quality
-- **Prettier** for consistent formatting
-- **Component-based architecture** with hooks
+3. **Create admin user**
+```bash
+node scripts/create-admin.js
+```
 
-## 🚀 Deployment
+4. **Run development server**
+```bash
+npm run dev
+```
 
-### Frontend
-- **Vercel** (recommended for Next.js)
-- **Netlify** alternative option
-- **Static export** available
+5. **Open [http://localhost:3000](http://localhost:3000)**
 
-### Backend (Future)
-- **AWS Lambda** or **Google Cloud Functions**
-- **Docker containers** for easy deployment
-- **CI/CD pipeline** with automated testing
+## 🔐 **Environment Variables**
 
-## 🔒 Security & Compliance
+Create a `.env.local` file:
 
-### Copyright & DMCA
-- **Admin-only uploads** to ensure rights compliance
-- **DMCA takedown** workflow and reporting
-- **Content moderation** tools for admins
-- **Clear copyright notices** and user guidelines
+```env
+JWT_SECRET=your-super-secure-secret-key
+```
 
-### Authentication
-- **JWT tokens** with refresh mechanism
-- **Role-based access control** (admin, user)
-- **Secure session management**
-- **Rate limiting** and DDoS protection
+## 📚 **Usage**
 
-## 🌟 Future Enhancements
+### **For Users:**
+1. **Sign up** for a free account
+2. **Browse the library** of available books
+3. **Read books** with customizable settings
+4. **Listen to audio** narration
+5. **Save progress** and bookmarks
 
-### Planned Features
-- **Offline reading** with PWA support
-- **Multi-language UI** (English + Turkish)
-- **Reading progress** tracking and bookmarks
-- **Social features** (reading groups, recommendations)
-- **Advanced search** with filters and tags
-- **Mobile apps** for iOS and Android
+### **For Admins:**
+1. **Login** with admin credentials
+2. **Upload PDF books** via admin panel
+3. **Manage book metadata** and descriptions
+4. **Delete books** if needed
+5. **Monitor user activity**
 
-### Technical Improvements
-- **Real TTS integration** with cloud providers
-- **PDF processing** pipeline for text extraction
-- **Search indexing** with Elasticsearch
-- **Analytics dashboard** for admins
-- **Performance monitoring** and optimization
+## 🌐 **Deployment**
 
-## 🤝 Contributing
+### **Vercel (Recommended - FREE)**
 
-### Development Team
-- **Jane** - Lead Developer
-- **Krishna** - Lead Developer & System Admin
+1. **Push to GitHub**
+2. **Connect to Vercel**
+3. **Add environment variables**
+4. **Deploy automatically**
 
-### Admin Team
-- **Yasemin** - Content Administrator
-- **Kevser** - Content Administrator
-- **Krishna** - System Administrator
+### **Other FREE Options:**
+- **Netlify** (FREE tier)
+- **Railway** (FREE tier)
+- **Render** (FREE tier)
 
-### How to Contribute
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+## 📖 **Book Management**
 
-## 📄 License
+- **Supported format:** PDF only
+- **Max file size:** 50MB
+- **Automatic metadata extraction**
+- **Text extraction for TTS**
+- **Thumbnail generation**
+
+## 🎵 **Audio Features**
+
+- **Text-to-Speech integration**
+- **Multiple voice options**
+- **Adjustable playback speed**
+- **Synchronized text highlighting**
+- **Start from any paragraph**
+
+## 🔒 **Security Features**
+
+- **JWT-based authentication**
+- **Password hashing** with bcrypt
+- **Admin-only uploads**
+- **Role-based access control**
+- **Secure file handling**
+
+## 🌟 **Future Enhancements**
+
+- [ ] **Offline PWA support**
+- [ ] **Multi-language UI** (English + Turkish)
+- [ ] **Reading progress tracking**
+- [ ] **Social sharing features**
+- [ ] **Advanced search and filters**
+- [ ] **Reading lists and collections**
+
+## 🤝 **Contributing**
+
+1. **Fork the repository**
+2. **Create a feature branch**
+3. **Make your changes**
+4. **Submit a pull request**
+
+## 📄 **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## 🙏 **Acknowledgments**
 
-- **Three.js community** for 3D graphics support
-- **Framer Motion** for smooth animations
-- **Tailwind CSS** for the design system
-- **Accessibility advocates** for guidance on inclusive design
+- **Developed by:** Jane & Krishna (Dev Leads)
+- **Admins:** Yasemin, Kevser, Krishna
+- **Design inspiration:** Calm, accessible reading experiences
+- **Open source libraries:** Next.js, React, Three.js, Tailwind CSS
+
+## 📞 **Support**
+
+- **Issues:** [GitHub Issues](https://github.com/yourusername/book-heaven/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/yourusername/book-heaven/discussions)
 
 ---
 
-**Book Heaven** - Where every story finds its reader, and every reader finds their story. 🌿📚✨
+**Book Heaven** - Where every story finds its reader, and every reader finds their story. 📚✨
