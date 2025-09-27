@@ -22,10 +22,6 @@ const nextConfig = {
     output: 'export',
     trailingSlash: true,
     distDir: 'out',
-    // Exclude API routes from static export
-    generateStaticParams: async () => {
-      return [];
-    },
   }),
 }
 
