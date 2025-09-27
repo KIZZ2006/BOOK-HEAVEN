@@ -123,6 +123,26 @@ export default function TestAPI() {
             >
               Test Books API
             </button>
+            <button
+              onClick={async () => {
+                setLoading(true);
+                setResult('Testing admin user creation...\n');
+                try {
+                  const response = await fetch(`${API_BASE_URL}/api/test-admin`);
+                  setResult(`Admin Test Status: ${response.status}\n`);
+                  const data = await response.json();
+                  setResult(prev => prev + `Admin Test Response: ${JSON.stringify(data, null, 2)}\n`);
+                } catch (error) {
+                  setResult(prev => prev + `Admin Test Error: ${error instanceof Error ? error.message : 'Unknown error'}\n`);
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              disabled={loading}
+              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 disabled:opacity-50"
+            >
+              Test Admin User
+            </button>
           </div>
         </div>
 
