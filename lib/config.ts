@@ -6,11 +6,11 @@ export const API_CONFIG = {
   },
   // Production - Vercel backend
   production: {
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://YOUR-BACKEND-URL.vercel.app',
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://yasemin-book-heaven.vercel.app',
   },
   // Netlify frontend (points to Vercel backend)
   netlify: {
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://YOUR-BACKEND-URL.vercel.app',
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://yasemin-book-heaven.vercel.app',
   },
 };
 
