@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import jwt from 'jsonwebtoken';
+import { corsHeaders, handleCors } from '@/lib/cors';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const ASSETS_DIR = path.join(process.cwd(), 'assets');
@@ -55,22 +56,11 @@ async function getAllBooks(): Promise<BookMetadata[]> {
   }
 }
 
-async function saveBooks(books: BookMetadata[]) {
-  // For now, we'll just delete the file and let the getAllBooks function rebuild the list
-  // In a real app, you might want to maintain a separate metadata file
-}
-
 export async function DELETE(request: NextRequest) {
-  // Add CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  };
-
   // Handle preflight requests
-  if (request.method === 'OPTIONS') {
-    return new NextResponse(null, { status: 200, headers });
+  const corsResponse = handleCors(request);
+  if (corsResponse) {
+    return corsResponse;
   }
 
   try {
@@ -79,7 +69,7 @@ export async function DELETE(request: NextRequest) {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json(
         { error: 'Authorization token required' },
-        { status: 401, headers }
+        { status: 401, headers: corsHeaders }
       );
     }
 
@@ -91,14 +81,14 @@ export async function DELETE(request: NextRequest) {
     } catch (error) {
       return NextResponse.json(
         { error: 'Invalid token' },
-        { status: 401, headers }
+        { status: 401, headers: corsHeaders }
       );
     }
 
     if (decoded.role !== 'admin') {
       return NextResponse.json(
         { error: 'Admin access required' },
-        { status: 403, headers }
+        { status: 403, headers: corsHeaders }
       );
     }
 
@@ -107,7 +97,7 @@ export async function DELETE(request: NextRequest) {
     if (!bookId) {
       return NextResponse.json(
         { error: 'Book ID is required' },
-        { status: 400, headers }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -117,7 +107,7 @@ export async function DELETE(request: NextRequest) {
     if (!bookToDelete) {
       return NextResponse.json(
         { error: 'Book not found' },
-        { status: 404, headers }
+        { status: 404, headers: corsHeaders }
       );
     }
 
@@ -128,20 +118,20 @@ export async function DELETE(request: NextRequest) {
       console.error('Error deleting file:', error);
       return NextResponse.json(
         { error: 'Failed to delete book file' },
-        { status: 500, headers }
+        { status: 500, headers: corsHeaders }
       );
     }
 
     return NextResponse.json({
       message: 'Book deleted successfully',
       deletedBook: bookToDelete
-    }, { headers });
+    }, { headers: corsHeaders });
 
   } catch (error) {
     console.error('Delete book error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500, headers }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

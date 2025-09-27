@@ -1,78 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { promises as fs } from 'fs';
-import path from 'path';
-
-interface User {
-  id: string;
-  email: string;
-  password: string;
-  name: string;
-  role: 'user' | 'admin';
-  createdAt: string;
-}
-
-const USERS_FILE = path.join(process.cwd(), 'data', 'users.json');
-
-async function ensureDataDir() {
-  const dataDir = path.dirname(USERS_FILE);
-  try {
-    await fs.access(dataDir);
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true });
-  }
-}
-
-async function getUsers(): Promise<User[]> {
-  try {
-    await ensureDataDir();
-    const data = await fs.readFile(USERS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-async function saveUsers(users: User[]) {
-  await ensureDataDir();
-  await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2));
-}
-
-async function initializeDefaultAdmin() {
-  const users = await getUsers();
-  
-  // Check if admin user already exists
-  const adminExists = users.find(user => user.email === 'admin@bookheaven.com');
-  
-  if (!adminExists) {
-    const hashedPassword = await bcrypt.hash('BookHeaven2024!', 12);
-    
-    const adminUser: User = {
-      id: 'admin-001',
-      email: 'admin@bookheaven.com',
-      password: hashedPassword,
-      name: 'Book Heaven Admin',
-      role: 'admin',
-      createdAt: new Date().toISOString()
-    };
-    
-    users.push(adminUser);
-    await saveUsers(users);
-    console.log('Default admin user created');
-  }
-}
+import { User, getUsers, saveUsers, initializeDefaultAdmin } from '@/lib/userUtils';
+import { corsHeaders, handleCors } from '@/lib/cors';
 
 export async function POST(request: NextRequest) {
-  // Add CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  };
-
   // Handle preflight requests
-  if (request.method === 'OPTIONS') {
-    return new NextResponse(null, { status: 200, headers });
+  const corsResponse = handleCors(request);
+  if (corsResponse) {
+    return corsResponse;
   }
 
   try {
@@ -84,24 +19,24 @@ export async function POST(request: NextRequest) {
     if (!email || !password || !name) {
       return NextResponse.json(
         { error: 'Email, password, and name are required' },
-        { status: 400, headers }
+        { status: 400, headers: corsHeaders }
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
         { error: 'Password must be at least 6 characters long' },
-        { status: 400, headers }
+        { status: 400, headers: corsHeaders }
       );
     }
 
     const users = await getUsers();
     
     // Check if user already exists
-    if (users.find(user => user.email === email)) {
+    if (users.find((user: User) => user.email === email)) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
-        { status: 409, headers }
+        { status: 409, headers: corsHeaders }
       );
     }
 
@@ -127,13 +62,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: 'User created successfully',
       user: userWithoutPassword
-    }, { headers });
+    }, { headers: corsHeaders });
 
   } catch (error) {
     console.error('Signup error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500, headers }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
