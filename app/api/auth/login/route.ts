@@ -25,6 +25,40 @@ async function getUsers(): Promise<User[]> {
   }
 }
 
+async function initializeDefaultAdmin() {
+  const users = await getUsers();
+  
+  // Check if admin user already exists
+  const adminExists = users.find(user => user.email === 'admin@bookheaven.com');
+  
+  if (!adminExists) {
+    const hashedPassword = await bcrypt.hash('BookHeaven2024!', 12);
+    
+    const adminUser: User = {
+      id: 'admin-001',
+      email: 'admin@bookheaven.com',
+      password: hashedPassword,
+      name: 'Book Heaven Admin',
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    };
+    
+    users.push(adminUser);
+    await saveUsers(users);
+    console.log('Default admin user created');
+  }
+}
+
+async function saveUsers(users: User[]) {
+  const dataDir = path.dirname(USERS_FILE);
+  try {
+    await fs.access(dataDir);
+  } catch {
+    await fs.mkdir(dataDir, { recursive: true });
+  }
+  await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2));
+}
+
 export async function POST(request: NextRequest) {
   // Add CORS headers
   const headers = {
@@ -39,6 +73,9 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // Initialize default admin user if it doesn't exist
+    await initializeDefaultAdmin();
+    
     const { email, password } = await request.json();
 
     if (!email || !password) {

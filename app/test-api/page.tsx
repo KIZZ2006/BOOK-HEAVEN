@@ -79,6 +79,20 @@ export default function TestAPI() {
           <p><strong>Deploy Target:</strong> {process.env.DEPLOY_TARGET}</p>
         </div>
 
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+          <h2 className="text-xl font-semibold mb-4 text-green-800">Login Credentials</h2>
+          <div className="space-y-2">
+            <p><strong>Admin Account:</strong></p>
+            <p className="font-mono text-sm bg-white p-2 rounded border">
+              Email: admin@bookheaven.com<br/>
+              Password: BookHeaven2024!
+            </p>
+            <p className="text-sm text-green-700 mt-2">
+              This account has admin privileges and can upload/delete books.
+            </p>
+          </div>
+        </div>
+
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Test API Connection</h2>
           <div className="space-y-4">
