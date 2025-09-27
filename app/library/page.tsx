@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BookMetadata } from '../lib/pdfUtils';
-import LibraryGrid from '../components/LibraryGrid';
-import { API_BASE_URL } from '../lib/config';
+import { BookMetadata } from '../../lib/pdfUtils';
+import LibraryGrid from '../../components/LibraryGrid';
+import { API_BASE_URL } from '../../lib/config';
 
 export default function LibraryPage() {
   const [books, setBooks] = useState<BookMetadata[]>([]);

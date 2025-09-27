@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Upload, FileText, User, Tag, FileUp, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
-import { useAuth } from '../../components/AuthContext';
+import { useAuth } from '../../../components/AuthContext';
 import { useRouter } from 'next/navigation';
 import { API_BASE_URL } from '../../../lib/config';
 
