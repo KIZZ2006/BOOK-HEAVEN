@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
+const isNetlify = process.env.DEPLOY_TARGET === 'netlify';
+
 const nextConfig = {
   images: {
     domains: ['localhost'],
     formats: ['image/webp', 'image/avif'],
+    unoptimized: isNetlify,
   },
   webpack: (config) => {
     config.resolve.fallback = {
@@ -15,14 +18,10 @@ const nextConfig = {
     serverComponentsExternalPackages: ['pdf-parse'],
   },
   // Configuration for static export (Netlify deployment)
-  output: process.env.NODE_ENV === 'production' && process.env.DEPLOY_TARGET === 'netlify' ? 'export' : undefined,
-  trailingSlash: true,
-  // Disable server-side features for static export
-  ...(process.env.DEPLOY_TARGET === 'netlify' && {
+  ...(isNetlify && {
+    output: 'export',
+    trailingSlash: true,
     distDir: 'out',
-    images: {
-      unoptimized: true,
-    },
   }),
 }
 

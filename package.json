@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:netlify": "DEPLOY_TARGET=netlify next build",
+    "build:netlify": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",

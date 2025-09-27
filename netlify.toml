@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "18.19.0"
   DEPLOY_TARGET = "netlify"
+  NEXT_PUBLIC_API_URL = "https://yasemin-book-heaven.vercel.app"
 
 [[redirects]]
   from = "/api/*"
