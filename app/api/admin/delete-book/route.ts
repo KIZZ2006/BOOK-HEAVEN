@@ -61,13 +61,25 @@ async function saveBooks(books: BookMetadata[]) {
 }
 
 export async function DELETE(request: NextRequest) {
+  // Add CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  // Handle preflight requests
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, { status: 200, headers });
+  }
+
   try {
     // Verify admin token
     const authHeader = request.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json(
         { error: 'Authorization token required' },
-        { status: 401 }
+        { status: 401, headers }
       );
     }
 
@@ -79,14 +91,14 @@ export async function DELETE(request: NextRequest) {
     } catch (error) {
       return NextResponse.json(
         { error: 'Invalid token' },
-        { status: 401 }
+        { status: 401, headers }
       );
     }
 
     if (decoded.role !== 'admin') {
       return NextResponse.json(
         { error: 'Admin access required' },
-        { status: 403 }
+        { status: 403, headers }
       );
     }
 
@@ -95,7 +107,7 @@ export async function DELETE(request: NextRequest) {
     if (!bookId) {
       return NextResponse.json(
         { error: 'Book ID is required' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -105,7 +117,7 @@ export async function DELETE(request: NextRequest) {
     if (!bookToDelete) {
       return NextResponse.json(
         { error: 'Book not found' },
-        { status: 404 }
+        { status: 404, headers }
       );
     }
 
@@ -116,20 +128,20 @@ export async function DELETE(request: NextRequest) {
       console.error('Error deleting file:', error);
       return NextResponse.json(
         { error: 'Failed to delete book file' },
-        { status: 500 }
+        { status: 500, headers }
       );
     }
 
     return NextResponse.json({
       message: 'Book deleted successfully',
       deletedBook: bookToDelete
-    });
+    }, { headers });
 
   } catch (error) {
     console.error('Delete book error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }

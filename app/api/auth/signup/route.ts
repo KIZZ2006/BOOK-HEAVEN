@@ -39,20 +39,32 @@ async function saveUsers(users: User[]) {
 }
 
 export async function POST(request: NextRequest) {
+  // Add CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  // Handle preflight requests
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, { status: 200, headers });
+  }
+
   try {
     const { email, password, name } = await request.json();
 
     if (!email || !password || !name) {
       return NextResponse.json(
         { error: 'Email, password, and name are required' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
         { error: 'Password must be at least 6 characters long' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -62,7 +74,7 @@ export async function POST(request: NextRequest) {
     if (users.find(user => user.email === email)) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
-        { status: 409 }
+        { status: 409, headers }
       );
     }
 
@@ -88,13 +100,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: 'User created successfully',
       user: userWithoutPassword
-    });
+    }, { headers });
 
   } catch (error) {
     console.error('Signup error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }

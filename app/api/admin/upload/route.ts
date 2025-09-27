@@ -6,13 +6,25 @@ import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
 export async function POST(request: NextRequest) {
+  // Add CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  // Handle preflight requests
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, { status: 200, headers });
+  }
+
   try {
     // Verify admin token
     const authHeader = request.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json(
         { error: 'Authorization token required' },
-        { status: 401 }
+        { status: 401, headers }
       );
     }
 
@@ -24,14 +36,14 @@ export async function POST(request: NextRequest) {
     } catch (error) {
       return NextResponse.json(
         { error: 'Invalid token' },
-        { status: 401 }
+        { status: 401, headers }
       );
     }
 
     if (decoded.role !== 'admin') {
       return NextResponse.json(
         { error: 'Admin access required' },
-        { status: 403 }
+        { status: 403, headers }
       );
     }
 
@@ -45,7 +57,7 @@ export async function POST(request: NextRequest) {
     if (!file || !title || !author) {
       return NextResponse.json(
         { error: 'File, title, and author are required' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -53,7 +65,7 @@ export async function POST(request: NextRequest) {
     if (!file.type.includes('pdf')) {
       return NextResponse.json(
         { error: 'Only PDF files are allowed' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -62,7 +74,7 @@ export async function POST(request: NextRequest) {
     if (file.size > maxSize) {
       return NextResponse.json(
         { error: 'File size must be less than 50MB' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -86,7 +98,7 @@ export async function POST(request: NextRequest) {
       await access(filePath);
       return NextResponse.json(
         { error: 'A book with this title and author already exists' },
-        { status: 409 }
+        { status: 409, headers }
       );
     } catch {
       // File doesn't exist, continue with upload
@@ -106,13 +118,13 @@ export async function POST(request: NextRequest) {
       description: description || '',
       tags: tags || '',
       size: file.size
-    });
+    }, { headers });
 
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }
